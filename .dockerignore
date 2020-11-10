@@ -3,4 +3,8 @@
 /tmp/
 /helpers
 /spec
+**Gemfile.lock*
 gitignored
+**coverage/
+**tmp/
+
