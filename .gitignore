@@ -28,3 +28,6 @@ vendor
 **/bin/helper
 /.core-bash_history
 coverage/
+.rakeTasks
+.tool-versions
+.idea/
