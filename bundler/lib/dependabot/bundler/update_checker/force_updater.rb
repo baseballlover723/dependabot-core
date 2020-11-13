@@ -19,6 +19,7 @@ module Dependabot
                        credentials:, target_version:,
                        requirements_update_strategy:,
                        update_multiple_dependencies: true)
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependency                   = dependency
           @dependency_files             = dependency_files
           @repo_contents_path           = repo_contents_path
@@ -65,6 +66,7 @@ module Dependabot
         end
 
         def original_dependencies
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @original_dependencies ||=
             FileParser.new(
               dependency_files: dependency_files,

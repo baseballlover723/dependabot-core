@@ -53,6 +53,7 @@ module Functions
 
   def self.dependency_source_type(gemfile_name:, dependency_name:, dir:,
                                   credentials:)
+    puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
     set_bundler_flags_and_credentials(dir: dir, credentials: credentials,
                                       using_bundler_2: false)
 
@@ -138,6 +139,7 @@ module Functions
 
   def self.set_bundler_flags_and_credentials(dir:, credentials:,
                                              using_bundler_2:)
+    puts "IN set_bundler_flags_and_credentials ********************************"
     dir = dir ? Pathname.new(dir) : dir
     Bundler.instance_variable_set(:@root, dir)
 
@@ -147,6 +149,7 @@ module Functions
 
     # Set auth details
     credentials.each do |cred|
+      puts "cred: #{cred.inspect}"
       token = cred["token"] ||
               "#{cred['username']}:#{cred['password']}"
 

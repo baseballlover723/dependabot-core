@@ -107,6 +107,7 @@ module Dependabot
       end
 
       def conflicting_dependencies
+        puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
         ConflictingDependencyResolver.new(
           dependency_files: dependency_files,
           repo_contents_path: repo_contents_path,
@@ -155,6 +156,7 @@ module Dependabot
 
         @resolvable[version] =
           begin
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             ForceUpdater.new(
               dependency: dependency,
               dependency_files: dependency_files,
@@ -176,6 +178,7 @@ module Dependabot
 
         @git_tag_resolvable[tag] =
           begin
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             VersionResolver.new(
               dependency: dependency,
               unprepared_dependency_files: dependency_files,
@@ -332,6 +335,7 @@ module Dependabot
       end
 
       def force_updater
+        puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
         @force_updater ||=
           ForceUpdater.new(
             dependency: dependency,
@@ -344,6 +348,7 @@ module Dependabot
       end
 
       def git_commit_checker
+        puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
         @git_commit_checker ||=
           GitCommitChecker.new(
             dependency: dependency,
@@ -356,6 +361,7 @@ module Dependabot
         @version_resolver[remove_git_source] ||= {}
         @version_resolver[remove_git_source][unlock_requirement] ||=
           begin
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             VersionResolver.new(
               dependency: dependency,
               unprepared_dependency_files: dependency_files,
@@ -379,6 +385,7 @@ module Dependabot
               unlock_requirement: true
             )
 
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             LatestVersionFinder.new(
               dependency: dependency,
               dependency_files: prepared_dependency_files,

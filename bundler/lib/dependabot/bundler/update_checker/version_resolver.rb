@@ -23,6 +23,7 @@ module Dependabot
                        replacement_git_pin: nil, remove_git_source: false,
                        unlock_requirement: true,
                        latest_allowable_version: nil)
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependency                  = dependency
           @unprepared_dependency_files = unprepared_dependency_files
           @credentials                 = credentials
@@ -70,11 +71,13 @@ module Dependabot
         def fetch_latest_resolvable_version_details
           return latest_version_details unless gemfile
 
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           SharedHelpers.with_git_configured(credentials: credentials) do
             # We do not want the helper to handle errors for us as there are
             # some errors we want to handle specifically ourselves, including
             # potentially retrying in the case of the Ruby version being locked
             in_a_native_bundler_context(error_handling: false) do |tmp_dir|
+              puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
               details =  SharedHelpers.run_helper_subprocess(
                 command: NativeHelpers.helper_path,
                 function: "resolve_version",
@@ -155,6 +158,7 @@ module Dependabot
         end
 
         def latest_version_details
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @latest_version_details ||=
             LatestVersionFinder.new(
               dependency: dependency,

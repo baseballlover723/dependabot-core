@@ -33,6 +33,7 @@ module Dependabot
 
         def initialize(dependencies:, dependency_files:,
                        repo_contents_path: nil, credentials:)
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependencies = dependencies
           @dependency_files = dependency_files
           @repo_contents_path = repo_contents_path

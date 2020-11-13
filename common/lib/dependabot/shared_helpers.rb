@@ -119,7 +119,9 @@ module Dependabot
         process_exit_value: process.to_s,
         process_termsig: process.termsig
       }
-
+      puts "STDOUT ***************************"
+      puts stdout.inspect
+      puts "END STDOUT ***************************"
       response = JSON.parse(stdout)
       return response["result"] if process.success?
 

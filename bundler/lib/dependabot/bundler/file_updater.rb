@@ -145,6 +145,7 @@ module Dependabot
       end
 
       def updated_lockfile_content
+        puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
         @updated_lockfile_content ||=
           LockfileUpdater.new(
             dependencies: dependencies,

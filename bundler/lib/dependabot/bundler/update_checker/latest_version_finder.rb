@@ -16,6 +16,7 @@ module Dependabot
         def initialize(dependency:, dependency_files:, repo_contents_path: nil,
                        credentials:, ignored_versions:, raise_on_ignored: false,
                        security_advisories:)
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependency          = dependency
           @dependency_files    = dependency_files
           @repo_contents_path  = repo_contents_path
@@ -100,6 +101,7 @@ module Dependabot
         end
 
         def dependency_source
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependency_source ||= DependencySource.new(
             dependency: dependency,
             dependency_files: dependency_files,

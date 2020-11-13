@@ -12,6 +12,9 @@ require "git_source_patch"
 require "functions"
 
 def output(obj)
+  puts "RUN OUTPUT *******************"
+  puts obj.inspect
+  puts "END RUN OUTPUT *******************"
   print JSON.dump(obj)
 end
 

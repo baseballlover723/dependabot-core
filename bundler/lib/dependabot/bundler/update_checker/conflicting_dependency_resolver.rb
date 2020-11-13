@@ -12,6 +12,7 @@ module Dependabot
         include SharedBundlerHelpers
 
         def initialize(dependency_files:, repo_contents_path:, credentials:)
+          puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
           @dependency_files = dependency_files
           @repo_contents_path = repo_contents_path
           @credentials = credentials

@@ -19,6 +19,7 @@ module Dependabot
           def initialize(dependency:,
                          dependency_files:,
                          credentials:)
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             @dependency          = dependency
             @dependency_files    = dependency_files
             @credentials         = credentials
@@ -51,8 +52,10 @@ module Dependabot
               dependency.requirements.map { |r| r.fetch(:source) }.
               uniq.compact.first
 
+            puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
             SharedHelpers.with_git_configured(credentials: credentials) do
               in_a_native_bundler_context do |tmp_dir|
+                puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
                 SharedHelpers.run_helper_subprocess(
                   command: NativeHelpers.helper_path,
                   function: "depencency_source_latest_git_version",
@@ -98,6 +101,7 @@ module Dependabot
           def private_registry_versions
             @private_registry_versions ||=
               in_a_native_bundler_context do |tmp_dir|
+                puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
                 SharedHelpers.run_helper_subprocess(
                   command: NativeHelpers.helper_path,
                   function: "private_registry_versions",
@@ -118,6 +122,7 @@ module Dependabot
             return @source_type = RUBYGEMS unless gemfile
 
             @source_type = in_a_native_bundler_context do |tmp_dir|
+              puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
               SharedHelpers.run_helper_subprocess(
                 command: NativeHelpers.helper_path,
                 function: "dependency_source_type",

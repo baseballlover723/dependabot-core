@@ -207,7 +207,9 @@ module Dependabot
         info[:url] || info.fetch("url")
       end
 
+      # TODO check here
       def registry_auth_headers
+        puts "#{__FILE__} *-->* #{__method__}:\n#{credentials.inspect}\n\n"
         return {} unless new_source_type == "rubygems"
 
         token =
