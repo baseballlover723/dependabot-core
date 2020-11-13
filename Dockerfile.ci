@@ -31,7 +31,6 @@ RUN mkdir -p \
 COPY common/ ${CODE_DIR}/common/
 RUN cd common && bundle install
 
-COPY bundler/ ${CODE_DIR}/bundler/
 COPY cargo/ ${CODE_DIR}/cargo/
 COPY composer/ ${CODE_DIR}/composer/
 COPY dep/ ${CODE_DIR}/dep/
@@ -70,6 +69,17 @@ RUN GREEN='\033[0;32m'; NC='\033[0m'; \
     echo "---------------------------------------------------------------------------" && \
     cd $d && bundle install; \
   done
+COPY bundler/ ${CODE_DIR}/bundler/
+RUN GREEN='\033[0;32m'; NC='\033[0m'; \
+  for d in `find ${CODE_DIR} -type f -mindepth 2 -maxdepth 2 \
+    -path "${CODE_DIR}/bundler/Gemfile" \
+    -name 'Gemfile' | xargs dirname`; do \
+    echo && \
+    echo "---------------------------------------------------------------------------" && \
+    echo "Installing gems for ${GREEN}$(realpath --relative-to=${CODE_DIR} $d)${NC}..." && \
+    echo "---------------------------------------------------------------------------" && \
+    cd $d && bundle install; \
+  done
 
 RUN git config --global user.name dependabot-ci && git config --global user.email no-reply@github.com
-RUN cd hex
+#RUN cd hex
