@@ -87,13 +87,22 @@ module Dependabot
         dependency.requirements.
           select { |r| requirement_class.new(r[:requirement]).specific? }.
           all? do |req|
+            puts "\nSTART requirements_unlocked_or_can_be? **************************************\n\n"
+            puts "dep: #{dependency.inspect}"
             file = dependency_files.find { |f| f.name == req.fetch(:file) }
             updated = FileUpdater::RequirementReplacer.new(
               dependency: dependency,
               file_type: file.name.end_with?("gemspec") ? :gemspec : :gemfile,
               updated_requirement: "whatever"
             ).rewrite(file.content)
+            puts "****** file.content ********"
+            puts file.content
+            puts "**** END file.content ******"
+            puts "****** UPDATED ********"
+            puts updated
+            puts "**** END UPDATED ******"
 
+            puts "\nEND requirements_unlocked_or_can_be? #{updated != file.content} **************************************\n\n"
             updated != file.content
           end
       end
