@@ -197,6 +197,7 @@ RUN curl -sSLfO https://packages.erlang-solutions.com/erlang-solutions_1.0_all.d
   && unzip -d /usr/local/elixir -x Precompiled.zip \
   && rm -f Precompiled.zip erlang-solutions_1.0_all.deb \
   && mix local.hex --force \
+  && mix local.rebar --force \
   && rm -rf /var/lib/apt/lists/*
 
 
@@ -229,7 +230,6 @@ USER root
 COPY --chown=dependabot:dependabot composer/helpers /opt/composer/helpers
 COPY --chown=dependabot:dependabot bundler/helpers /opt/bundler/helpers
 COPY --chown=dependabot:dependabot go_modules/helpers /opt/go_modules/helpers
-COPY --chown=dependabot:dependabot hex/helpers /opt/hex/helpers
 COPY --chown=dependabot:dependabot npm_and_yarn/helpers /opt/npm_and_yarn/helpers
 COPY --chown=dependabot:dependabot python/helpers /opt/python/helpers
 COPY --chown=dependabot:dependabot terraform/helpers /opt/terraform/helpers
@@ -244,12 +244,16 @@ RUN mkdir -p /opt/bundler/v1 \
 RUN bash /opt/bundler/helpers/v1/build /opt/bundler/v1
 RUN bash /opt/bundler/helpers/v2/build /opt/bundler/v2
 RUN bash /opt/go_modules/helpers/build /opt/go_modules
-RUN bash /opt/hex/helpers/build /opt/hex
 RUN bash /opt/npm_and_yarn/helpers/build /opt/npm_and_yarn
 RUN bash /opt/python/helpers/build /opt/python
 RUN bash /opt/terraform/helpers/build /opt/terraform
 RUN bash /opt/composer/helpers/v1/build /opt/composer/v1
 RUN bash /opt/composer/helpers/v2/build /opt/composer/v2
+
+USER root
+COPY --chown=dependabot:dependabot hex/helpers /opt/hex/helpers
+USER dependabot
+RUN bash /opt/hex/helpers/build /opt/hex
 
 ENV HOME="/home/dependabot"
 

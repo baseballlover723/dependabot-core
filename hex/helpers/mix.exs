@@ -16,6 +16,8 @@ defmodule DependabotCore.Mixfile do
   end
 
   defp deps() do
-    [{:jason, "~> 1.0"}]
+    [{:jason, "~> 1.0"},
+     {:httpoison, "~> 1.8"}
+    ]
   end
 end

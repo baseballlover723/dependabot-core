@@ -99,6 +99,7 @@ defmodule Parser do
   end
 end
 
+#dependencies = {:ok, Parser.run()}
 dependencies = :erlang.term_to_binary({:ok, Parser.run()})
 
 IO.write(:stdio, dependencies)
